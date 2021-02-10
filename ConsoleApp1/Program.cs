@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 
 namespace ConsoleApp1
 {
@@ -10,7 +10,8 @@ namespace ConsoleApp1
             int speed;
             int tSpeed;
             int grade;
-            int fine;
+            string year = "";
+            double fine = 0;
 
             //determine student number, speed, and ticketed speed
             Console.WriteLine("Enter Student Number: ");
@@ -24,47 +25,94 @@ namespace ConsoleApp1
             Console.WriteLine("Type Number for Student's Grade: \nFreshman (1)\nSophmore (2)\nJunior (3)\nSenior (4)");
             grade = int.Parse(Console.ReadLine());
 
-            Cost(grade, speed, tSpeed, fine);
-
-            Console.WriteLine("    Student Ticket   \nStudent Number: " + number + "Student Grade: " + grade + "\nSpeed Limit: " + speed + 
-                "\nTicketed Speed: " + tSpeed + "Ticket Fine: " + fine);
-        }
-
-        public void Cost(int grade, int speed, int tSpeed, int fine)
-        {
             if (grade == 1)
             {
-
-                if (tSpeed >= (speed+20))
-                {
-                    
-                }
-                else
-                {
-
-                }
+                year = "Freshman";
             }
             else if (grade == 2)
             {
-
-
-
+                year = "Sophmore";
             }
             else if (grade == 3)
             {
-
-
-
+                year = "Junior";
             }
             else if (grade == 4)
             {
+                year = "Senior";
+            }         
 
+            //call to private static double cost
+            fine = Cost(grade, speed, tSpeed, fine);
 
+            Console.Clear();
+            Console.WriteLine("    Student Ticket   \nStudent Number: " + number + "\nStudent Grade: " + "{0}" + "\nSpeed Limit: " + speed +
+                "\nTicketed Speed: " + tSpeed + "\nTicket Fine: $" + fine, year);
 
-            }
         }
-        
+            
+        private static double Cost(int grade, int speed, int tSpeed, double fine)
+            {
+             int dif = tSpeed - speed;
+             fine = 75;
 
+             if (grade == 1)
+             {
+
+                 if (tSpeed >= (speed + 20))
+                 {
+                    fine = fine + (((((dif) - (dif % 5)) / 5) * 87.5) + 100);
+                 }
+                 else
+                 {
+                    fine = fine + (((((dif)-(dif%5))/5)*87.5)-50);
+                 }
+                
+
+             }
+             else if (grade == 2)
+                 {
+                 if (tSpeed >= (speed + 20))
+                 {
+                     fine = fine + (((((dif)-(dif%5))/5)*87.5) + 100);
+                 }
+                 else
+                 {
+                     fine = fine + ((((dif)-(dif%5))/5)*87.5);
+                 }
+
+
+             }
+                
+             else if (grade == 3)
+             {
+                if (tSpeed >= (speed + 20))
+                {
+                    fine = fine + (((((dif) - (dif % 5)) / 5) * 87.5) + 100);
+                }
+                else
+                {
+                    fine = fine + ((((dif) - (dif % 5)) / 5) * 87.5);
+                }
+
+             }
+             else if (grade == 4)
+             {
+                if (tSpeed >= (speed + 20))
+                {
+                    fine = fine + (((((dif) - (dif % 5)) / 5) * 87.5) + 200);
+                }
+                else
+                {
+                    fine = fine + (((((dif) - (dif % 5)) / 5) * 87.5) + 50);
+                }
+
+             }
+             
+            return fine;
+        }
+
+        
     }   
 
 
